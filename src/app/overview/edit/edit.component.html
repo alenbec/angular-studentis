@@ -48,7 +48,7 @@
               Subjects to attend:
             </div>
             <div class="ui-grid-col-10">
-              <p-pickList [responsive]="true" [source]="subjects$ | async" [target]="studentForm.value.subjects" 
+              <p-pickList class="picklist" [responsive]="true" [source]="subjects$ | async" [target]="studentForm.value.subjects"
                 dragdrop="true" ngForTrackBy="id" filterBy="name,lecturer" [showSourceControls]="false" [showTargetControls]="false"
                 sourceFilterPlaceholder="Search non-assigned subjects"
                 targetFilterPlaceholder="Search assigned subjects" >

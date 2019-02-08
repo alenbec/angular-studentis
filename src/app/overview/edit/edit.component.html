@@ -1,0 +1,84 @@
+<div class="row">
+  <div class="col" *ngIf="studentForm" >
+
+    <p-blockUI [target]="pnl" [blocked]="(state$ | async).loading">
+        <i class="fa fa-lock fa-5x" class="loading"></i>
+    </p-blockUI>
+
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+    <form [formGroup]="studentForm" (ngSubmit)="onSubmit(studentForm.value)">
+      <p-panel #pnl [header]="edit ? 'Edit student' : 'Create student'">
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-2">
+              First Name *:
+            </div>
+            <div class="ui-grid-col-6">
+              <input pInputText pInputText type="text" formControlName="firstName" placeholder="Required" class="ng-pristine ng-invalid ui-inputtext ui-corner-all ui-state-default ui-widget ng-touched" />
+            </div>
+            <div class="ui-grid-col-4">
+              <p-message  severity="error" text="First name is required" *ngIf="!studentForm.controls['firstName'].valid&&studentForm.controls['firstName'].dirty"></p-message>
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-2">
+              Last Name *:
+            </div>
+            <div class="ui-grid-col-6">
+              <input pInputText type="text" formControlName="lastName" placeholder="Required" class="ng-pristine ng-invalid ui-inputtext ui-corner-all ui-state-default ui-widget ng-touched" />
+            </div>
+            <div class="ui-grid-col-4">
+              <p-message severity="error" text="Last name is required" *ngIf="!studentForm.controls['lastName'].valid&&studentForm.controls['lastName'].dirty"></p-message>
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-2">
+              Year of study *:
+            </div>
+            <div class="ui-grid-col-6">
+              <p-dropdown [options]="years" formControlName="year" [autoWidth]="false"></p-dropdown>
+            </div>
+            <div class="ui-grid-col-4">
+              <p-message severity="error" text="Year of study is required" *ngIf="!studentForm.controls['year'].valid&&studentForm.controls['year'].dirty"></p-message>
+            </div>
+          </div>
+          <div class="ui-grid-row mt-3">
+            <div class="ui-grid-col-2">
+              Subjects to attend:
+            </div>
+            <div class="ui-grid-col-10">
+              <p-pickList [responsive]="true" [source]="subjects$ | async" [target]="studentForm.value.subjects" 
+                dragdrop="true" ngForTrackBy="id" filterBy="name,lecturer" [showSourceControls]="false" [showTargetControls]="false"
+                sourceFilterPlaceholder="Search non-assigned subjects"
+                targetFilterPlaceholder="Search assigned subjects" >
+                <ng-template let-subject pTemplate="item">
+                  <div class="ui-helper-clearfix">
+                    <div>{{subject.name}}</div>
+                    <div><small>{{ subject.lecturer }}</small></div>
+                  </div>
+                </ng-template>
+              </p-pickList>
+            </div>
+          </div>
+          <div class="ui-grid-row mt-4">
+            <div class="ui-grid-col-2"></div>
+            <div class="ui-grid-col-1">
+              <button pButton type="button" label="Cancel" class="ui-button-secondary" (click)="back()"></button>
+            </div>
+            <div class="col"></div>
+            <div class="ui-grid-col-1">
+                <button pButton type="submit" [label]="edit ? 'Save' : 'Create'" [disabled]="!studentForm.valid"></button>
+              </div>
+            <div class="ui-grid-col-4"></div>
+          </div>
+          <div style="text-align:center;margin-top:20px" *ngIf="submitted">
+            Student was successfuly created
+            <br>
+            {{diagnostic}}
+          </div>
+        </div>
+      </p-panel>
+    </form>
+  </div>
+</div>

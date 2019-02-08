@@ -1,0 +1,60 @@
+<div *ngIf="(state$ | async); let state">
+  <div class="row">
+    <div class="col-9">
+      <h1>Students Overview</h1>
+    </div>
+    <div class="col-3 text-right">
+      <button pButton type="button" label="Add new" class="ui-button-primary mt-4" (click)="add()"></button>
+    </div>
+    <div class="col-12">
+      <p>
+        Following table contains paginated list of {{ state.data.totalRecords }} students.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+    <div class="col">
+      <p-table #tbl id="students" [value]="state.data.students" [style]="{'margin-top':'20px'}"
+        [totalRecords]="state.data.totalRecords" [lazy]="true" (onLazyLoad)="loadStudentsLazy($event.first)" 
+        [paginator]="true" [rows]="rows" [responsive]="true" [loading]="state.loading" [rowHover]="true">
+        
+        <ng-template pTemplate="caption">
+          <!-- <div class="text-right">
+            
+
+              <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+              <input type="text" pInputText size="50" [(ngModel)]="filter" placeholder="Search students" (input)="tbl.filterGlobal($event.target.value, 'contains')" style="width:auto" class="ui-inputtext ui-corner-all ui-state-default ui-widget">
+          </div> -->
+
+          <div class="search text-right">
+            <input [(ngModel)]="filter" (input)="tbl.filterGlobal($event.target.value, 'contains')" 
+              class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all"
+              role="textbox" type="text" placeholder="Search students">
+            <span class="ui-picklist-filter-icon pi pi-search"></span>
+          </div>
+        </ng-template>
+        
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Student ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-student>
+          <tr>
+            <td (click)="viewStudent(student)">{{student.id}}</td>
+            <td (click)="viewStudent(student)">{{student.firstName}}</td>
+            <td (click)="viewStudent(student)">{{student.lastName}}</td>
+            <td>
+              <i class="pi pi-pencil" (click)="editStudent(student)"></i>
+              <i class="pi pi-trash" (click)="deleteStudent(student)"></i>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

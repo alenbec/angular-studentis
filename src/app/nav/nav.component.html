@@ -1,0 +1,15 @@
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+  <h5 class="my-0 mr-md-auto font-weight-normal">{{ (state$ | async).title }}</h5>
+  <nav class="my-2 my-md-0 mr-md-3">
+    <a class="p-2 text-dark" routerLink="/">Home</a>
+    <a *ngIf="isAuthenticated" class="p-2 text-dark" routerLink="/overview">Overview</a>
+  </nav>
+  <div *ngIf="isAuthenticated text-secondary" class="userinfo">
+    <div class="row justify-content-center">
+      <div class="col-auto"><a routerLink="/profile" class="p-2">{{ user.name }}</a></div>
+      <div class="col"><img [src]="user.picture" class="ml-2 img-responsive rounded-circle" height="25" /></div>
+    </div>
+  </div>
+  <a *ngIf="!isAuthenticated" class="btn btn-outline-primary" routerLink="/login">Log in</a>
+  <a *ngIf="isAuthenticated" class="btn btn-outline-primary ml-4" (click)="logout()">Log out</a>
+</div>

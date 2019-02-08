@@ -1,0 +1,31 @@
+<div *ngIf="(state$ | async).student; let student">
+  <p-panel [header]="'Details for ' + displayName(student) + ' (' + student.id + ')'">
+    <div class="row">
+      <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+      <div class="col-md-5">
+        <dl class="row">
+          <dt class="col-sm-3">Student ID</dt>
+          <dd class="col-sm-9">{{ student.id }}</dd>
+          <dt class="col-sm-3">Name</dt>
+          <dd class="col-sm-9">{{ displayName(student) }}</dd>
+          <dt class="col-sm-3">Year</dt>
+          <dd class="col-sm-9">{{ student.year }}.</dd>
+        </dl>
+        <p>
+          <button pButton type="button" label="Cancel" class="ui-button-secondary" (click)="back()"></button>
+          <button pButton type="button" label="Delete" class="ui-button-danger float-right ml-3" (click)="delete(student)"></button>
+          <button pButton type="button" label="Edit" class="ui-button-secondary float-right" (click)="edit()"></button>
+        </p>
+      </div>
+      <div class="col-md-7">
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let subject of student.subjects">
+            {{ subject.name }}
+            <small class="float-right mt-1">{{ subject.lecturer }}</small>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </p-panel>
+</div>

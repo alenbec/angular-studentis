@@ -1,0 +1,40 @@
+#students {
+  tr {
+    &:hover td:not(:last-child) {
+      background: var(--primary);
+      color: var(--light);
+      cursor: pointer;
+    }
+
+    th:last-child,
+    td:last-child {
+      width: 4.75rem;
+      i {
+        margin-right: 1rem;
+        cursor: pointer;
+        &:hover{
+          color: var(--primary)
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .ui-widget-header {
+    text-align: right;
+  }
+
+  .search {
+    input {
+      padding-right: 1.75rem;
+    }
+    span {
+      margin-left: -1.5rem;
+      margin-top: 0.5em;
+      position: absolute;
+    }
+  }
+}

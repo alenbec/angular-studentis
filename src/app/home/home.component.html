@@ -1,0 +1,11 @@
+<div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+  <main role="main" class="inner cover">
+    <h1 class="cover-heading mb-5">{{ (state$ | async).title }}</h1>
+    <p class="lead">Welcome to the most advanced sutdent information system - {{ (state$ | async).title }}.</p>
+    <p class="lead">Using this system you can add new student (basic student information and subjects that student will be part of), edit the student (subjects only), and delete a student.</p>
+    <p *ngIf="!isAuthenticated" class="lead">Before proceeding please <a routerLink="/login">Log in</a>.</p>
+    <p *ngIf="isAuthenticated" class="text-center mt-5">
+      <a routerLink="/overview" class="btn btn-lg btn-secondary">Proceed to Student Overview</a>
+    </p>
+  </main>
+</div>

@@ -9,12 +9,20 @@ export class BaseComponent {
   state$: Observable<any>
 
   constructor(
-    protected authService: AuthService,
-    protected activatedRoute: ActivatedRoute,
-    protected store: Store<State>,
+    public authService: AuthService,
+    public activatedRoute: ActivatedRoute,
+    public store: Store<State>,
     stateName: string = 'main'
   ) {
     this.state$ = store.select(stateName)
+  }
+
+  get isAuthenticated() : boolean {
+    return this.authService.isAuthenticated()
+  }
+
+  get user() : object {
+    return this.authService.user()
   }
 
   extractNumberFromParam(paramName: string): number {

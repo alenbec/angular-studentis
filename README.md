@@ -1,6 +1,11 @@
 # Student Information System (Sample App)
 I've created this project to learn about Angular and its capabilities. You are free to use its source code to your liking.
 
+This simple application contains student overview page which shows lists students provided by faux api service. It supports adding students, deleting them and editing them (subjects only).
+
+Web app implements OpenID Connect authentication. Use your Google account to log in. Authentication token will be stored in your browser's localStorage. You can use predefined OAuth2 Client ID or your own by changing `auth` parameters in `environment(.prod).ts`.  
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.0.
 
 ## Development server

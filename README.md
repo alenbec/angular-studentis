@@ -1,7 +1,8 @@
 # Student Information System (Sample App)
 I've created this project to learn about Angular and its capabilities. You are free to use its source code to your liking.
 
-Demo application is available here: https://alenbec-angular-studentis.herokuapp.com
+Demo application is available here:  
+[go](https://alenbec-angular-studentis.herokuapp.com){:target="_blank"}.
 
 This simple application contains student overview page which shows lists students provided by faux api service. It supports adding students, deleting them and editing them (subjects only).
 

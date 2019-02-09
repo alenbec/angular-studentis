@@ -37,5 +37,6 @@ export class StudentsResult {
   public page: number
   public recordsPerPage: number
   public totalRecords: number
+  public totalFilteredRecords: number
   public students: Array<Student>
 }

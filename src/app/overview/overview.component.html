@@ -16,7 +16,7 @@
     <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
     <div class="col">
       <p-table #tbl id="students" [value]="state.data.students" [style]="{'margin-top':'20px'}"
-        [totalRecords]="state.data.totalRecords" [lazy]="true" (onLazyLoad)="loadStudentsLazy($event.first)"
+        [totalRecords]="state.data.totalFilteredRecords" [lazy]="true" (onLazyLoad)="loadStudentsLazy($event.first)"
         [paginator]="true" [rows]="rows" [responsive]="true" [loading]="state.loading" [rowHover]="true">
 
         <ng-template pTemplate="caption">

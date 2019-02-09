@@ -86,6 +86,7 @@ export class ApiService {
         page: page,
         recordsPerPage: studentsPerPage,
         totalRecords: active.length,
+        totalFilteredRecords: filtered.length,
         students: startIndex > filtered.length - 1 ? [] :
         filtered.slice(startIndex, startIndex + studentsPerPage)
       }

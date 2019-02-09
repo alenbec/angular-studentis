@@ -11,7 +11,7 @@ export enum OverviewActionTypes {
   EditStudent = '[OVERVIEW] EditStudent',
   NewStudent = '[OVERVIEW] NewStudent',
   LoadStudents = '[OVERVIEW] LoadStudents',
-  LoadStudentsSuccess = '[OVERVIEW] LoadDataSuccess',
+  LoadStudentsSuccess = '[OVERVIEW] LoadStudentsSuccess',
   DeleteStudent = '[OVERVIEW] DeleteStudent',
   DeleteStudentSuccess = '[OVERVIEW] DeleteStudentSuccess',
   SaveStudent = '[OVERVIEW] SaveStudent',

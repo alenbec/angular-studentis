@@ -33,9 +33,13 @@ export class OverviewEffects {
   loadStudent$ = this.actions$
   .pipe(
     ofType(OverviewActionTypes.LoadStudent),
-    switchMap((action: LoadStudent) => this.api.getStudentById(action.id)),
-    map((student: Student) => new LoadStudentSuccess(student)),
-    catchError((error: string) => of(new LoadStudentError(error)))
+    switchMap((action: LoadStudent) =>
+      this.api.getStudentById(action.id)
+      .pipe(
+        map((student: Student) => new LoadStudentSuccess(student)),
+        catchError((error: string) => of(new LoadStudentError(error)))
+      )
+    )
   )
 
   @Effect()

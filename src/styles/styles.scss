@@ -11,20 +11,6 @@
   color: var(--light);
 }
 
-.userinfo {
-  a {
-    text-decoration: none !important;
-  }
-  .row div {
-    &:first-child {
-      padding-right: 0;
-    }
-    &:last-child {
-      padding-left: 0;
-    }
-  }
-}
-
 .ui-picklist .ui-picklist-list {
   height: 20em !important;
 }

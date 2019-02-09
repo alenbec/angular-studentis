@@ -1,0 +1,20 @@
+.userinfo {
+  a {
+    display: block;
+    text-decoration: none !important;
+  }
+
+  img {
+    display: block;
+    margin-top: 8px;
+  }
+
+  .row div {
+    &:first-child {
+      padding-right: 0;
+    }
+    &:last-child {
+      padding-left: 0;
+    }
+  }
+}

@@ -6,6 +6,7 @@ export enum OverviewActionTypes {
   SetLoadingState = '[OVERVIEW] SetLoadingState',
   LoadStudent = '[OVERVIEW] LoadStudent',
   LoadStudentSuccess = '[OVERVIEW] LoadStudentSuccess',
+  LoadStudentError = '[OVERVIEW] LoadStudentError',
   ClearStudent = '[OVERVIEW] ClearStudent',
   EditStudent = '[OVERVIEW] EditStudent',
   NewStudent = '[OVERVIEW] NewStudent',
@@ -65,6 +66,12 @@ export class LoadStudentSuccess implements Action {
   constructor(public student: Student) { }
 }
 
+export class LoadStudentError implements Action {
+  readonly type = OverviewActionTypes.LoadStudentError
+
+  constructor(public error: string) { }
+}
+
 export class LoadStudents implements Action {
   readonly type = OverviewActionTypes.LoadStudents
 
@@ -89,7 +96,7 @@ export class DeleteStudentSuccess implements Action {
   constructor() { }
 }
 
-export type OverviewAction = 
-  SetLoadingState | LoadStudent | LoadStudentSuccess | ClearStudent | LoadStudents | 
+export type OverviewAction =
+  SetLoadingState | LoadStudent | LoadStudentSuccess | ClearStudent | LoadStudents |
   LoadStudentsSuccess | DeleteStudent | DeleteStudentSuccess | SaveStudent | SaveStudentSuccess |
-  EditStudent | NewStudent
+  EditStudent | NewStudent | LoadStudentError

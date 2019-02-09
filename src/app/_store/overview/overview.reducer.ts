@@ -33,7 +33,14 @@ export function reducer(state: OverviewState = initialState, action: OverviewAct
       case OverviewActionTypes.LoadStudent:
         draftState.loading = true
         return
-        
+
+      case OverviewActionTypes.LoadStudentError:
+        draftState.loading = false
+        draftState.student = <Student>{
+          subjects: []
+        }
+        return
+
       case OverviewActionTypes.SaveStudent:
         draftState.loading = true
         return

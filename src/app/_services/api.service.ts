@@ -70,7 +70,11 @@ export class ApiService {
     return new Observable<Student>((observer) => {
       let student = this._students.filter(s => s.id === id)
       let result = student.length > 0 ? student[0] : null
-      observer.next(result)
+      if (result) {
+        observer.next(result)
+      } else {
+        observer.error('No student with such id.')
+      }
       observer.complete()
     }).pipe(this.delay())
   }

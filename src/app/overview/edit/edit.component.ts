@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { State } from 'src/app/_store';
 import { AuthService } from 'src/app/_services/auth.service';
 import { ApiService } from 'src/app/_services/api.service';
-import { OverviewActionTypes, SaveStudentSuccess } from 'src/app/_store/overview/overview.actions';
+import { OverviewActionTypes, SaveStudentSuccess, LoadStudentError } from 'src/app/_store/overview/overview.actions';
 import { MessageService, SelectItem } from 'primeng/api';
 import { Student, Subject } from 'src/app/_models/overview-models';
 import { pluck } from 'rxjs/operators';
@@ -32,6 +32,7 @@ export class EditComponent extends BaseComponent implements OnInit, OnDestroy {
   student: Student
   subSuccess: Subscription
   subStudent: Subscription
+  subError: Subscription
   subjects$: Observable<Array<Subject>>
 
   constructor(
@@ -51,15 +52,6 @@ export class EditComponent extends BaseComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // load student if id is given
-    let id = this.extractNumberFromParam('id')
-    if (id) {
-      this.store.dispatch({
-        type: OverviewActionTypes.LoadStudent,
-        id: this.extractNumberFromParam('id')
-      })
-    }
-
     let url = this.router.url
     this.subStudent = this.state$.pipe(pluck('student'))
     .subscribe((student: Student) => {
@@ -100,6 +92,25 @@ export class EditComponent extends BaseComponent implements OnInit, OnDestroy {
         })
       })
     ).subscribe()
+
+    // react if load student fails
+    this.subError = this.updates$.pipe(
+      ofType(OverviewActionTypes.LoadStudentError),
+      map((action: LoadStudentError) => {
+        this.router.navigate(['../../'], {
+          relativeTo: this.activatedRoute
+        })
+      })
+    ).subscribe()
+
+    // load student if id is given
+    let id = this.extractNumberFromParam('id')
+    if (id) {
+      this.store.dispatch({
+        type: OverviewActionTypes.LoadStudent,
+        id: this.extractNumberFromParam('id')
+      })
+    }
   }
 
   back() : void {
@@ -123,5 +134,6 @@ export class EditComponent extends BaseComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subStudent.unsubscribe()
     this.subSuccess.unsubscribe()
+    this.subError.unsubscribe()
   }
 }

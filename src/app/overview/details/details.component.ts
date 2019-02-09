@@ -5,8 +5,11 @@ import { Store } from '@ngrx/store';
 import { State } from 'src/app/_store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Student } from 'src/app/_models/overview-models';
-import { OverviewActionTypes } from 'src/app/_store/overview/overview.actions';
+import { OverviewActionTypes, LoadStudentSuccess, LoadStudentError } from 'src/app/_store/overview/overview.actions';
 import { ConfirmationService } from 'primeng/api';
+import { map } from 'rxjs/operators';
+import { Actions, ofType } from '@ngrx/effects';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-details',
@@ -16,12 +19,15 @@ import { ConfirmationService } from 'primeng/api';
 
 export class DetailsComponent extends BaseComponent implements OnInit, OnDestroy {
 
+  subError: Subscription
+
   constructor(
     activatedRoute: ActivatedRoute,
     store: Store<State>,
     authService: AuthService,
     private router : Router,
-    private confirmationService: ConfirmationService) {
+    private confirmationService: ConfirmationService,
+    private updates$: Actions) {
     super(authService, activatedRoute, store, 'overview')
   }
 
@@ -52,6 +58,16 @@ export class DetailsComponent extends BaseComponent implements OnInit, OnDestroy
   }
 
   ngOnInit() {
+    this.subError = this.updates$.pipe(
+      ofType(OverviewActionTypes.LoadStudentError),
+      map((action: LoadStudentError) => {
+        console.error(action.error)
+        this.router.navigate(['../'], {
+          relativeTo: this.activatedRoute
+        })
+      })
+    ).subscribe()
+
     this.store.dispatch({
       type: OverviewActionTypes.LoadStudent,
       id: this.extractNumberFromParam('id')
@@ -59,6 +75,7 @@ export class DetailsComponent extends BaseComponent implements OnInit, OnDestroy
   }
 
   ngOnDestroy(): void {
+    this.subError.unsubscribe()
     this.store.dispatch({
       type: OverviewActionTypes.ClearStudent
     })

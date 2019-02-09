@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store';
 import { State } from '../_store';
 import { OverviewActionTypes } from '../_store/overview/overview.actions';
@@ -7,7 +7,6 @@ import { ApiService } from '../_services/api.service';
 import { AuthService } from '../_services/auth.service';
 import { BaseComponent } from '../_models/component-models';
 import { Student } from '../_models/overview-models';
-import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent'
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { Actions, ofType } from '@ngrx/effects';
@@ -80,7 +79,7 @@ export class OverviewComponent extends BaseComponent implements OnInit {
     })
   }
 
-  ngOnInit() {    
+  ngOnInit() {
     this.subDelete = this.updates$.pipe(
       ofType(OverviewActionTypes.DeleteStudentSuccess),
       map(() => this.loadStudentsLazy(this.first))

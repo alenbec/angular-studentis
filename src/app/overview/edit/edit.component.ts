@@ -9,7 +9,7 @@ import { ApiService } from 'src/app/_services/api.service';
 import { OverviewActionTypes, SaveStudentSuccess } from 'src/app/_store/overview/overview.actions';
 import { MessageService, SelectItem } from 'primeng/api';
 import { Student, Subject } from 'src/app/_models/overview-models';
-import { pluck, takeUntil } from 'rxjs/operators';
+import { pluck } from 'rxjs/operators';
 import { Subscription, Observable } from 'rxjs';
 import { Actions, ofType } from '@ngrx/effects';
 import { map } from 'rxjs/operators';

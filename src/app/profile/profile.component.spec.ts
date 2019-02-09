@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProfileComponent } from './profile.component';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { oAuthServiceStub } from '../_models/test-stubs';
+import { RouterTestingModule } from '@angular/router/testing';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from '../_store';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
@@ -8,7 +13,14 @@ describe('ProfileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProfileComponent ]
+      declarations: [ ProfileComponent ],
+      imports: [
+        RouterTestingModule,
+        StoreModule.forRoot(reducers)
+      ],
+      providers: [
+        { provide: OAuthService, useValue: oAuthServiceStub }
+      ]
     })
     .compileComponents();
   }));

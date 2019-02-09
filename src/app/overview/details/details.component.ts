@@ -3,7 +3,6 @@ import { BaseComponent } from 'src/app/_models/component-models';
 import { AuthService } from 'src/app/_services/auth.service';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/_store';
-import { ApiService } from 'src/app/_services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Student } from 'src/app/_models/overview-models';
 import { OverviewActionTypes } from 'src/app/_store/overview/overview.actions';

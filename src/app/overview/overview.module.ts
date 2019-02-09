@@ -17,8 +17,6 @@ import { DropdownModule } from 'primeng/dropdown';
 import { PanelModule } from 'primeng/panel';
 import { PickListModule } from 'primeng/picklist';
 
-
-
 const routes: Routes = [
   { path: 'new', component: EditComponent },
   { path: ':id', component: DetailsComponent },

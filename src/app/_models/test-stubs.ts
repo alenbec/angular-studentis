@@ -1,10 +1,15 @@
-import { OAuthService } from 'angular-oauth2-oidc';
+import { OAuthService, LoginOptions, AuthConfig, OAuthStorage } from 'angular-oauth2-oidc';
 
+var isLoggedIn = false
 export const oAuthServiceStub: Partial<OAuthService> = {
-  hasValidAccessToken: () => true,
-  initImplicitFlow: () => { },
+  configure: (config: AuthConfig) => { },
+  setStorage: (storage: OAuthStorage) => { },
+  loadDiscoveryDocumentAndTryLogin: (options?: LoginOptions) => Promise.resolve(true),
+  hasValidAccessToken: () => isLoggedIn,
+  initImplicitFlow: () => { isLoggedIn = true },
+  setupAutomaticSilentRefresh: (params?: object) => { },
   getIdentityClaims: () => {
-    return {
+    return isLoggedIn  ? {
       at_hash: "",
       aud: "",
       azp: "",
@@ -16,9 +21,10 @@ export const oAuthServiceStub: Partial<OAuthService> = {
       jti: "",
       locale: "en-GB",
       name: "Johnny Bravo",
-      nonce: "XME7CbqQ02m2J45JWt6Dhy5hK6FCQ4KO5Dwa1bmY",
+      nonce: "",
       picture: "https://via.placeholder.com/300x300.png?text=Profile+photo",
       sub: ""
-    }
-  }
+    } : { }
+  },
+  logOut: (noRedirectToLogoutUrl: boolean) => { isLoggedIn = false }
 }

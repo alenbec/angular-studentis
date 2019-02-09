@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Student, StudentsResult, Subject } from '../_models/overview-models';
 import { environment } from 'src/environments/environment';
-import { Observable, of, MonoTypeOperatorFunction } from 'rxjs';
+import { Observable, MonoTypeOperatorFunction } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
 @Injectable({
@@ -135,7 +135,7 @@ class Generator {
     'Programiranje 1', 'Diskretne strukture', 'Računalniška arhitektura', 'Uvod v računalništvo', 'Matematika',
     'Podatkovne baze', 'Računalniške komunikacije', 'Operacijski sistemi', 'Osnove verjetnosti in statistike',
     'Programiranje 2', 'Računalniška grafika', 'Umetna inteligenca', 'Programski jezik C', 'Digitalna vezja',
-    'Algoritmi in podatkovne strukture 1', 'Organizacija računalnikov', 'Tehnične veščine', 
+    'Algoritmi in podatkovne strukture 1', 'Organizacija računalnikov', 'Tehnične veščine',
     'Komunikacijski protokoli in omrežna varnost', 'Grafično oblikovanje', 'Digitalno procesiranje signalov',
     'Informacijski sistemi', 'Podatkovne baze 2', 'Elektronsko in mobilno poslovanje', 'Testiranje in kakovost',
     'Algoritmi in podatkovne strukture 2', 'Prevajalniki in navidezni stroji', 'Uporabniški vmesniki',

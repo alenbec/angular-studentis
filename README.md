@@ -3,7 +3,7 @@ I've created this project to learn about Angular and its capabilities. You are f
 
 Demo application is available [here](https://alenbec-angular-studentis.herokuapp.com).
 
-This simple application contains student overview page which shows lists students provided by faux api service. It supports adding students, deleting them and editing them (subjects only).
+This simple application contains student overview page which shows lists of students provided by faux api service. It supports adding students, deleting them and editing them (subjects only).
 
 Web app implements OpenID Connect authentication. Use your Google account to log in. Authentication token will be stored in your browser's localStorage. You can use predefined OAuth2 Client ID or your own by changing `auth` parameters in `environment(.prod).ts`.  
 

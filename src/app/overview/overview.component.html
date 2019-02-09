@@ -16,25 +16,18 @@
     <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
     <div class="col">
       <p-table #tbl id="students" [value]="state.data.students" [style]="{'margin-top':'20px'}"
-        [totalRecords]="state.data.totalRecords" [lazy]="true" (onLazyLoad)="loadStudentsLazy($event.first)" 
+        [totalRecords]="state.data.totalRecords" [lazy]="true" (onLazyLoad)="loadStudentsLazy($event.first)"
         [paginator]="true" [rows]="rows" [responsive]="true" [loading]="state.loading" [rowHover]="true">
-        
+
         <ng-template pTemplate="caption">
-          <!-- <div class="text-right">
-            
-
-              <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-              <input type="text" pInputText size="50" [(ngModel)]="filter" placeholder="Search students" (input)="tbl.filterGlobal($event.target.value, 'contains')" style="width:auto" class="ui-inputtext ui-corner-all ui-state-default ui-widget">
-          </div> -->
-
           <div class="search text-right">
-            <input [(ngModel)]="filter" (input)="tbl.filterGlobal($event.target.value, 'contains')" 
+            <input [(ngModel)]="filter" (input)="tbl.filterGlobal($event.target.value, 'contains')"
               class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all"
               role="textbox" type="text" placeholder="Search students">
             <span class="ui-picklist-filter-icon pi pi-search"></span>
           </div>
         </ng-template>
-        
+
         <ng-template pTemplate="header">
           <tr>
             <th>Student ID</th>

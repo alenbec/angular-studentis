@@ -7,8 +7,12 @@ This simple application contains student overview page which shows lists of stud
 
 Web app implements OpenID Connect authentication. Use your Google account to log in. Authentication token will be stored in your browser's localStorage. You can use predefined OAuth2 Client ID or your own by changing `auth` parameters in `environment(.prod).ts`.  
 
-
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.0.
+
+
+## Current limitations/issues  
+- Students and subjects are generated on site load and will persist as long as you don't close your browser or refresh site. If you revisit or refresh site, a new dataset of students and subjects will be generated. This is by design.
+- Only some tests are written at the moment. More scenarios have yet to be covered.
 
 ## Development server
 

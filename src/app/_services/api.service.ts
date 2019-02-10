@@ -82,6 +82,11 @@ export class ApiService {
   // get api/students?page={page}&records={recordsPerPage}
   public getStudents(studentsPerPage: number, page: number, filter: string): Observable<StudentsResult> {
     return new Observable<StudentsResult>((observer) => {
+      if(!studentsPerPage || !page){
+        observer.error('Parameters studentsPerPage and page have to be a valid numbers.')
+        return observer.complete()
+      }
+
       filter = (filter || '').trim()
       let active = this._students.filter(s => !s.deleted)
       let filtered = !filter ? active : active.filter(s => this.isMatch(s, filter))
@@ -116,7 +121,6 @@ export class ApiService {
     if (!filter) {
       return true
     }
-    let match = false
     str = str.toLowerCase()
     return str.includes(filter)
   }

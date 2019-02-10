@@ -27,7 +27,7 @@ export class AuthService {
       this.oauthService.setupAutomaticSilentRefresh()
     })
   }
-  
+
   public isAuthenticated(): boolean {
     return this.oauthService.hasValidAccessToken()
   }
@@ -37,7 +37,7 @@ export class AuthService {
   }
 
   public logout() {
-    this.oauthService.logOut();
+    this.oauthService.logOut()
     this.router.navigate(['/'])
   }
 

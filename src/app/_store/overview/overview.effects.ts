@@ -17,8 +17,7 @@ export class OverviewEffects {
     private actions$: Actions,
     private api: ApiService,
     private router: Router
-  ) {
-  }
+  ) { }
 
   @Effect()
   loadStudents$ = this.actions$

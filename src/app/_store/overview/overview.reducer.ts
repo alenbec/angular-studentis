@@ -30,6 +30,10 @@ export function reducer(state: OverviewState = initialState, action: OverviewAct
         draftState.loading = true
         return
 
+      case OverviewActionTypes.LoadStudentsError:
+        draftState.loading = false
+        return
+
       case OverviewActionTypes.LoadStudent:
         draftState.loading = true
         return
@@ -48,6 +52,10 @@ export function reducer(state: OverviewState = initialState, action: OverviewAct
       case OverviewActionTypes.SaveStudentSuccess:
         draftState.loading = false
         draftState.student = action.student
+        return
+
+      case OverviewActionTypes.SaveStudentError:
+        draftState.loading = false
         return
 
       case OverviewActionTypes.EditStudent:
@@ -81,6 +89,11 @@ export function reducer(state: OverviewState = initialState, action: OverviewAct
         return
 
       case OverviewActionTypes.DeleteStudentSuccess: {
+        draftState.loading = false
+        return
+      }
+
+      case OverviewActionTypes.DeleteStudentError: {
         draftState.loading = false
         return
       }

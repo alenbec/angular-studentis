@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { map, tap, switchMap, withLatestFrom, catchError } from 'rxjs/operators';
+import { map, tap, switchMap, withLatestFrom, catchError, exhaustMap } from 'rxjs/operators';
 import { ApiService } from 'src/app/_services/api.service';
-import { OverviewActionTypes, LoadStudents, LoadStudentsSuccess, DeleteStudent, LoadStudent, LoadStudentSuccess, ClearStudent, SaveStudent, SaveStudentSuccess, EditStudent, NewStudent, DeleteStudentSuccess, LoadStudentError } from './overview.actions';
+import { OverviewActionTypes, LoadStudents, LoadStudentsSuccess, DeleteStudent, LoadStudent, LoadStudentSuccess, ClearStudent, SaveStudent, SaveStudentSuccess, EditStudent, NewStudent, DeleteStudentSuccess, LoadStudentError, LoadStudentsError, SaveStudentError, DeleteStudentError } from './overview.actions';
 import { Store } from '@ngrx/store';
 import { State } from '..';
 import { OverviewState } from './overview.reducer';
@@ -23,32 +23,38 @@ export class OverviewEffects {
   loadStudents$ = this.actions$
   .pipe(
     ofType(OverviewActionTypes.LoadStudents),
-    switchMap((action: LoadStudents) => this.api.getStudents(action.rows, action.page, action.filter)),
-    map(students => new LoadStudentsSuccess(students)),
-    catchError(error => of(console.error(error)))
+    exhaustMap((action: LoadStudents) =>
+      this.api.getStudents(action.rows, action.page, action.filter).pipe(
+        map(students => new LoadStudentsSuccess(students)),
+        catchError(error => of(new LoadStudentsError(error)))
+      )
+    )
   )
 
   @Effect()
   loadStudent$ = this.actions$
   .pipe(
     ofType(OverviewActionTypes.LoadStudent),
-    switchMap((action: LoadStudent) =>
-      this.api.getStudentById(action.id)
-      .pipe(
+    exhaustMap((action: LoadStudent) =>
+      this.api.getStudentById(action.id).pipe(
         map((student: Student) => new LoadStudentSuccess(student)),
         catchError((error: string) => of(new LoadStudentError(error)))
       )
     )
   )
 
+
   @Effect()
   saveStudent$ = this.actions$
   .pipe(
     ofType(OverviewActionTypes.SaveStudent),
-    switchMap((action: SaveStudent) => action.student.id ?
+    exhaustMap((action: SaveStudent) => (action.student.id ?
       this.api.updateStudent(action.student) :
-      this.api.createStudent(action.student)),
-    map((student: Student) => new SaveStudentSuccess(student))
+      this.api.createStudent(action.student)).pipe(
+        map((student: Student) => new SaveStudentSuccess(student)),
+        catchError((error: string) => of(new SaveStudentError(error)))
+      )
+    )
   )
 
   @Effect({ dispatch: false })
@@ -70,17 +76,21 @@ export class OverviewEffects {
   deleteStudent$ = this.actions$
   .pipe(
     ofType(OverviewActionTypes.DeleteStudent),
-    switchMap((action: DeleteStudent) => this.api.deleteStudent(action.id)),
-    withLatestFrom(this.store$.select('overview'), (student: Student, state: OverviewState) => {
-      return state.student && student && student.id === state.student.id
-    }),
-    map((clear) => {
-      if (clear) {
-        this.router.navigate(['/overview'])
-        return new ClearStudent()
-      }
-      return of({})
-    }),
-    map(() => new DeleteStudentSuccess())
+    exhaustMap((action: DeleteStudent) =>
+      this.api.deleteStudent(action.id).pipe(
+        withLatestFrom(this.store$.select('overview'), (student: Student, state: OverviewState) => {
+          return state.student && student && student.id === state.student.id
+        }),
+        map((clear) => {
+          if (clear) {
+            this.router.navigate(['/overview'])
+            return new ClearStudent()
+          }
+          return of({})
+        }),
+        map(() => new DeleteStudentSuccess()),
+        catchError((error: string) => of(new DeleteStudentError(error)))
+      )
+    )
   )
 }

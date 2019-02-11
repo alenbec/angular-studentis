@@ -4,18 +4,21 @@ import { ApiService } from 'src/app/_services/api.service';
 
 export enum OverviewActionTypes {
   SetLoadingState = '[OVERVIEW] SetLoadingState',
+  LoadStudents = '[OVERVIEW] LoadStudents',
+  LoadStudentsSuccess = '[OVERVIEW] LoadStudentsSuccess',
+  LoadStudentsError = '[OVERVIEW] LoadStudentsError',
   LoadStudent = '[OVERVIEW] LoadStudent',
   LoadStudentSuccess = '[OVERVIEW] LoadStudentSuccess',
   LoadStudentError = '[OVERVIEW] LoadStudentError',
+  SaveStudent = '[OVERVIEW] SaveStudent',
+  SaveStudentSuccess = '[OVERVIEW] SaveStudentSuccess',
+  SaveStudentError = '[OVERVIEW] SaveStudentError',
   ClearStudent = '[OVERVIEW] ClearStudent',
   EditStudent = '[OVERVIEW] EditStudent',
   NewStudent = '[OVERVIEW] NewStudent',
-  LoadStudents = '[OVERVIEW] LoadStudents',
-  LoadStudentsSuccess = '[OVERVIEW] LoadStudentsSuccess',
   DeleteStudent = '[OVERVIEW] DeleteStudent',
   DeleteStudentSuccess = '[OVERVIEW] DeleteStudentSuccess',
-  SaveStudent = '[OVERVIEW] SaveStudent',
-  SaveStudentSuccess = '[OVERVIEW] SaveStudentSuccess'
+  DeleteStudentError = '[OVERVIEW] DeleteStudentError'
 }
 
 export class SetLoadingState implements Action {
@@ -46,6 +49,18 @@ export class SaveStudentSuccess implements Action {
   readonly type = OverviewActionTypes.SaveStudentSuccess
 
   constructor(public student: Student) { }
+}
+
+export class SaveStudentError implements Action {
+  readonly type = OverviewActionTypes.SaveStudentError
+
+  constructor(public error: string) { }
+}
+
+export class LoadStudentsError implements Action {
+  readonly type = OverviewActionTypes.LoadStudentsError
+
+  constructor(public error: String) { }
 }
 
 export class EditStudent implements Action {
@@ -96,7 +111,14 @@ export class DeleteStudentSuccess implements Action {
   constructor() { }
 }
 
+export class DeleteStudentError implements Action {
+  readonly type = OverviewActionTypes.DeleteStudentError
+
+  constructor(public error: string) { }
+}
+
 export type OverviewAction =
   SetLoadingState | LoadStudent | LoadStudentSuccess | ClearStudent | LoadStudents |
   LoadStudentsSuccess | DeleteStudent | DeleteStudentSuccess | SaveStudent | SaveStudentSuccess |
-  EditStudent | NewStudent | LoadStudentError
+  EditStudent | NewStudent | LoadStudentError | LoadStudentsError | SaveStudentError |
+  DeleteStudentError

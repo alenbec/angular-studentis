@@ -60,7 +60,7 @@ export class SaveStudentError implements Action {
 export class LoadStudentsError implements Action {
   readonly type = OverviewActionTypes.LoadStudentsError
 
-  constructor(public error: String) { }
+  constructor(public error: string) { }
 }
 
 export class EditStudent implements Action {

@@ -31,11 +31,15 @@ export class ApiService {
   // post api/students
   public createStudent(student: Student): Observable<Student> {
     return new Observable<Student>((observer) => {
+      if(student.id) {
+        observer.error('Student id must not exist.')
+        return observer.complete()
+      }
       student.id = Math.max(...this._students.map(s => s.id)) + 1
       this._students.push(student)
       let result = student
-        observer.next(result)
-        observer.complete()
+      observer.next(result)
+      observer.complete()
     }).pipe(this.delay())
   }
 
@@ -43,15 +47,14 @@ export class ApiService {
   public updateStudent(student: Student): Observable<Student> {
     return new Observable<Student>((observer) => {
       let index = this._students.findIndex(s => s.id === student.id)
-      let result: Student
       if (index !== -1) {
         this._students[index] = student
-        result = student
+        observer.next(student)
+        observer.complete()
       } else {
-        result = student
+        observer.error('Student with specified id does not exist.')
+        return observer.complete()
       }
-      observer.next(result)
-      observer.complete()
     }).pipe(this.delay())
   }
 
@@ -104,7 +107,7 @@ export class ApiService {
     }).pipe(this.delay())
   }
 
-  private delay<T>() : MonoTypeOperatorFunction<T> {
+  public delay<T>() : MonoTypeOperatorFunction<T> {
     return delay(environment.apiSimulationDelay)
   }
 
